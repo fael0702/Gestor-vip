@@ -1,20 +1,19 @@
 import { Router } from 'express';
-import ReviewController from './produtos.controller';
+import ProdutosController from './produtos.controller';
 
-export default class ReviewRota {
+export default class ProdutosRota {
   private router: Router;
-  private controller: ReviewController;
+  private controller: ProdutosController;
 
   constructor() {
     this.router = Router();
-    this.controller = new ReviewController();
+    this.controller = new ProdutosController();
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
-    this.router.post('/criar', this.controller.criarReview);
-    this.router.get('/buscar/:id', this.controller.reviewsUsuario);
-    this.router.delete('/apagar/:id', this.controller.apagarReview);
+    this.router.post('/criar', this.controller.criarProdutos);
+    // this.router.delete('/apagar/:id', this.controller.apagarProdutos);
   }
 
   getRouter() {

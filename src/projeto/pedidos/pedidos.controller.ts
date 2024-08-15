@@ -14,12 +14,12 @@ export default class PedidosController extends BaseController {
 
   public async criarPedido(req: Request, res: Response): Promise<void> {
     await this.executeMethod(async () => {
-      const comentario = req.body.comentario;
-      const nota = +req.body.nota;
-      const idJogo = +req.body.idJogo;
-      const idUsuario = +req.body.idUsuario;
+      const valor = +req.body.valor;
+      const taxa = +req.body.taxa;
+      const idJogador = +req.body.idJogador;
+      const status = req.body.status;
 
-      const pedido = await this.service.criarPedido(comentario, nota, idJogo, idUsuario);
+      const pedido = await this.service.criarPedido(valor, taxa, idJogador, status);
 
       res.status(200).json(pedido);
     }, req, res);

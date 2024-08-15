@@ -1,46 +1,19 @@
 import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Review } from "../../entities/Review";
+import { Produtos } from "../../entities/Produtos";
 
 
-export default class ReviewRepositorio extends Repository<Review>{
-  private repositorio: Repository<Review>;
+export default class ProdutosRepositorio extends Repository<Produtos>{
+  private repositorio: Repository<Produtos>;
 
   constructor(
     private entityManager?: EntityManager
   ) {
-    super(Review, entityManager);
-    this.repositorio = AppDataSource.getRepository(Review);
+    super(Produtos, entityManager);
+    this.repositorio = AppDataSource.getRepository(Produtos);
   }
 
-  public async reviewsUsuario(id: number) {
-    try {
-      const qb = this.repositorio.createQueryBuilder('r')
-        .innerJoinAndSelect('r.usuario', 'u')
-        .innerJoinAndSelect('r.jogo', 'j')
-        .where('r.usuario_id = :id')
-        .setParameters({ id })
-
-      return await qb.getMany()
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  public async buscarPorJogo(id: number) {
-    try {
-      const qb = this.repositorio.createQueryBuilder('r')
-        .innerJoinAndSelect('r.jogo', 'j')
-        .where('r.jogo_id = :id')
-        .setParameters({ id })
-
-      return await qb.getMany()
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  public async salvar(review: Review): Promise<Review> {
+  public async salvar(review: Produtos): Promise<Produtos> {
     try {
       return this.repositorio.save(review);
     } catch (error) {

@@ -1,17 +1,13 @@
-import { Pagamentos } from '../../entities/Pagamentos';
+import { Pedidos } from '../../entities/Pedidos';
 import JogoRepositorio from '../jogadores/jogadores.repositorio';
 import UsuarioRepositorio from '../usuario/usuario.repositorio';
 import PedidoRepositorio from './pedidos.repositorio';
 
 export default class PedidoService {
     private repositorio: PedidoRepositorio;
-    private jogoRepositorio: JogoRepositorio;
-    private usuarioRepositorio: UsuarioRepositorio
 
     constructor() {
         this.repositorio = new PedidoRepositorio();
-        this.jogoRepositorio = new JogoRepositorio();
-        this.usuarioRepositorio = new UsuarioRepositorio();
     }
 
     // public async pedidoUsuario(id: number) {
@@ -24,7 +20,7 @@ export default class PedidoService {
     //     }
     // }
 
-    public async criarPedido(jogadorId: number, valor: number, taxa: number, status: string): Promise<Pagamentos> {
+    public async criarPedido(jogadorId: number, valor: number, taxa: number, status: string): Promise<Pedidos> {
         try {
             // const jaExiste = await this.repositorio.buscarPorJogo(idJogo);
 
@@ -36,7 +32,7 @@ export default class PedidoService {
 
             // const usuario = await this.usuarioRepositorio.buscarPorId(idUsuario);
 
-            const pedido = new Pagamentos();
+            const pedido = new Pedidos();
             // pedido.comentario = comentario;
             // pedido.nota = nota;
             // pedido.jogo = jogo;

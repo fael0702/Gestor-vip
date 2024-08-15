@@ -1,48 +1,21 @@
 import { EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Review } from "../../entities/Review";
+import { Pedidos } from "../../entities/Pedidos";
 
 
-export default class ReviewRepositorio extends Repository<Review>{
-  private repositorio: Repository<Review>;
+export default class ReviewRepositorio extends Repository<Pedidos>{
+  private repositorio: Repository<Pedidos>;
 
   constructor(
     private entityManager?: EntityManager
   ) {
-    super(Review, entityManager);
-    this.repositorio = AppDataSource.getRepository(Review);
+    super(Pedidos, entityManager);
+    this.repositorio = AppDataSource.getRepository(Pedidos);
   }
 
-  public async reviewsUsuario(id: number) {
+  public async salvar(Pedidos: Pedidos): Promise<Pedidos> {
     try {
-      const qb = this.repositorio.createQueryBuilder('r')
-        .innerJoinAndSelect('r.usuario', 'u')
-        .innerJoinAndSelect('r.jogo', 'j')
-        .where('r.usuario_id = :id')
-        .setParameters({ id })
-
-      return await qb.getMany()
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  public async buscarPorJogo(id: number) {
-    try {
-      const qb = this.repositorio.createQueryBuilder('r')
-        .innerJoinAndSelect('r.jogo', 'j')
-        .where('r.jogo_id = :id')
-        .setParameters({ id })
-
-      return await qb.getMany()
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  public async salvar(review: Review): Promise<Review> {
-    try {
-      return this.repositorio.save(review);
+      return this.repositorio.save(Pedidos);
     } catch (error) {
       console.error(error);
       throw new Error(error);
@@ -55,7 +28,7 @@ export default class ReviewRepositorio extends Repository<Review>{
       return result;
     } catch (error) {
       console.error(error);
-      throw new Error('Erro ao excluir review');
+      throw new Error('Erro ao excluir pedidos');
     }
   }
 }
